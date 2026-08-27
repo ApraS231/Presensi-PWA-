@@ -1,0 +1,341 @@
+/**
+ * Material Design 3 (M3) Mobile PWA Layout Styles
+ * PT. Cahaya Anugrah Kalimantan - Sistem Presensi PWA
+ */
+
+body.pwa-body {
+    background-color: #F0F4F9;
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--md-ref-typeface);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme="dark"] body.pwa-body {
+    background-color: #0E0E11;
+}
+
+.pwa-app-wrapper {
+    width: 100%;
+    max-width: 880px;
+    min-height: 100vh;
+    background-color: var(--md-sys-color-surface-container-lowest);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
+    border-left: 1px solid var(--md-sys-color-outline-variant);
+    border-right: 1px solid var(--md-sys-color-outline-variant);
+    position: relative;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+}
+
+/* ═══════════════════════════════════════════
+   PWA TOP APP BAR
+   ═══════════════════════════════════════════ */
+.pwa-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 16px;
+    background-color: var(--md-sys-color-surface-container-lowest);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.pwa-profile-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+    margin-right: 8px;
+}
+
+.pwa-user-details {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+}
+
+.pwa-user-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 18px;
+    color: var(--md-sys-color-on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pwa-user-meta {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 15px;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pwa-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--md-sys-shape-corner-full);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    background-color: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface-variant);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.theme-toggle-btn:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-primary);
+}
+
+/* ═══════════════════════════════════════════
+   PWA MAIN CONTENT & PAGE TRANSITIONS
+   ═══════════════════════════════════════════ */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: 0.2s cubic-bezier(0.4, 0, 1, 1) both pwaPageFadeOut;
+}
+
+::view-transition-new(root) {
+    animation: 0.32s cubic-bezier(0.16, 1, 0.3, 1) both pwaPageSlideIn;
+}
+
+.pwa-content {
+    flex: 1;
+    padding: 24px 20px;
+    animation: pwaPageSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+    will-change: transform, opacity;
+}
+
+.pwa-content.pwa-page-leaving {
+    animation: pwaPageFadeOut 0.2s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+}
+
+@keyframes pwaPageSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.985);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes pwaPageFadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.985);
+    }
+}
+
+/* Responsive Grid for Dashboard */
+.pwa-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .pwa-dashboard-grid {
+        grid-template-columns: 1.4fr 1fr;
+    }
+}
+
+/* ═══════════════════════════════════════════
+   M3 BOTTOM NAVIGATION BAR
+   ═══════════════════════════════════════════ */
+.md-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 880px;
+    height: calc(70px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background-color: var(--md-sys-color-surface-container-lowest);
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 100;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.04);
+}
+
+.md-bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: var(--md-sys-color-on-surface-variant);
+    text-decoration: none;
+    padding: 6px 10px;
+    flex: 1;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
+    user-select: none;
+}
+
+.md-bottom-nav-item:active {
+    transform: scale(0.91);
+}
+
+.md-nav-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 32px;
+    border-radius: var(--md-sys-shape-corner-full);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.md-bottom-nav-item .material-symbols-rounded {
+    font-size: 22px;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
+}
+
+.md-bottom-nav-item span.md-nav-label {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 14px;
+    letter-spacing: 0.2px;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.md-bottom-nav-item.active {
+    color: var(--color-ocean-blue);
+}
+
+.md-bottom-nav-item.active span.md-nav-label {
+    font-weight: 800;
+    transform: translateY(-1px);
+    color: var(--color-ocean-blue);
+}
+
+.md-bottom-nav-item.active .md-nav-indicator {
+    background: linear-gradient(135deg, var(--color-cloudy-sky-light) 0%, var(--color-cloudy-sky) 100%);
+    color: var(--color-ocean-blue);
+    box-shadow: 0 5px 14px rgba(40, 114, 161, 0.22), inset 1.5px 1.5px 3px rgba(255, 255, 255, 0.95);
+    animation: navPulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.md-bottom-nav-item.active .material-symbols-rounded {
+    transform: scale(1.15);
+    animation: navPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="dark"] .md-bottom-nav-item.active {
+    color: #93C5FD;
+}
+
+[data-theme="dark"] .md-bottom-nav-item.active span.md-nav-label {
+    color: #93C5FD;
+}
+
+[data-theme="dark"] .md-bottom-nav-item.active .md-nav-indicator {
+    background: linear-gradient(135deg, #1E2D3D 0%, #152230 100%);
+    color: #93C5FD;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+    animation: navPulseDark 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ═══════════════════════════════════════════
+   NAVBAR ANIMATION KEYFRAMES
+   ═══════════════════════════════════════════ */
+@keyframes navPop {
+    0% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.28);
+    }
+    100% {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes navPulse {
+    0% {
+        transform: scale(0.92);
+        box-shadow: 0 0 0 0 rgba(40, 114, 161, 0.4);
+    }
+    50% {
+        transform: scale(1.04);
+        box-shadow: 0 0 0 6px rgba(40, 114, 161, 0.15);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 5px 14px rgba(40, 114, 161, 0.22), inset 1.5px 1.5px 3px rgba(255, 255, 255, 0.95);
+    }
+}
+
+@keyframes navPulseDark {
+    0% {
+        transform: scale(0.92);
+        box-shadow: 0 0 0 0 rgba(147, 197, 253, 0.4);
+    }
+    50% {
+        transform: scale(1.04);
+        box-shadow: 0 0 0 6px rgba(147, 197, 253, 0.15);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 1px 1px 2px rgba(255, 255, 255, 0.15);
+    }
+}
+
+@media (max-width: 768px) {
+    body.pwa-body {
+        background-color: var(--md-sys-color-surface-container-lowest);
+    }
+
+    .pwa-app-wrapper {
+        max-width: 100%;
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+    }
+
+    .md-bottom-nav {
+        max-width: 100%;
+    }
+}

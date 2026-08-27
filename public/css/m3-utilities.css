@@ -1,0 +1,73 @@
+/**
+ * Material Design 3 (M3) Utility Classes
+ * PT. Cahaya Anugrah Kalimantan - Sistem Presensi PWA
+ */
+
+/* ═══════════════════════════════════════════
+   TYPESCALE UTILITIES (Explicit properties for robust cross-browser rendering)
+   ═══════════════════════════════════════════ */
+.md-display-large   { font-size: 57px; font-weight: 700; line-height: 64px; letter-spacing: -0.25px; }
+.md-display-medium  { font-size: 45px; font-weight: 700; line-height: 52px; letter-spacing: 0; }
+.md-display-small   { font-size: 36px; font-weight: 600; line-height: 44px; letter-spacing: 0; }
+
+.md-headline-large  { font-size: 32px; font-weight: 700; line-height: 40px; letter-spacing: -0.2px; }
+.md-headline-medium { font-size: 28px; font-weight: 600; line-height: 36px; letter-spacing: -0.15px; }
+.md-headline-small  { font-size: 24px; font-weight: 600; line-height: 32px; letter-spacing: 0; }
+
+.md-title-large     { font-size: 20px; font-weight: 700; line-height: 26px; letter-spacing: 0; }
+.md-title-medium    { font-size: 16px; font-weight: 600; line-height: 24px; letter-spacing: 0.15px; }
+.md-title-small     { font-size: 14px; font-weight: 600; line-height: 20px; letter-spacing: 0.1px; }
+
+.md-body-large      { font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: 0.5px; }
+.md-body-medium     { font-size: 14px; font-weight: 400; line-height: 20px; letter-spacing: 0.25px; }
+.md-body-small      { font-size: 12.5px; font-weight: 400; line-height: 18px; letter-spacing: 0.4px; }
+
+.md-label-large     { font-size: 14px; font-weight: 600; line-height: 20px; letter-spacing: 0.1px; }
+.md-label-medium    { font-size: 12px; font-weight: 600; line-height: 16px; letter-spacing: 0.5px; }
+.md-label-small     { font-size: 11px; font-weight: 600; line-height: 16px; letter-spacing: 0.5px; }
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS & MICRO-INTERACTIONS
+   ═══════════════════════════════════════════ */
+.md-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.md-ripple::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    pointer-events: none;
+}
+
+.md-ripple:hover::after  { opacity: 0.08; }
+.md-ripple:focus::after  { opacity: 0.12; }
+.md-ripple:active::after { opacity: 0.16; }
+
+@keyframes md-pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.4; }
+}
+.md-pulse {
+    animation: md-pulse 2s infinite ease-in-out;
+}
+
+@keyframes md-shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+.md-skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--md-sys-color-surface-container-high) 25%,
+        var(--md-sys-color-surface-container-highest) 50%,
+        var(--md-sys-color-surface-container-high) 75%
+    );
+    background-size: 200% 100%;
+    animation: md-shimmer 1.5s infinite;
+    border-radius: var(--md-sys-shape-corner-small);
+}

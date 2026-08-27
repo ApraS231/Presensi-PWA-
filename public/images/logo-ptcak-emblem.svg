@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="44" height="44" fill="none">
+  <!-- Brand Emblem -->
+  <rect width="44" height="44" rx="10" fill="url(#cakEmblemGradient)" />
+  <path d="M22 8L26.8 18.2L37 22L26.8 25.8L22 36L17.2 25.8L7 22L17.2 18.2L22 8Z" fill="url(#sunEmblemGradient)" />
+  <circle cx="22" cy="22" r="5" fill="#FFFFFF" opacity="0.95" />
+  <path d="M22 14.5L23.7 20.3L29.5 22L23.7 23.7L22 29.5L20.3 23.7L14.5 22L20.3 20.3L22 14.5Z" fill="#1565C0" />
+  
+  <defs>
+    <linearGradient id="cakEmblemGradient" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1565C0" />
+      <stop offset="1" stop-color="#0D47A1" />
+    </linearGradient>
+    <linearGradient id="sunEmblemGradient" x1="7" y1="8" x2="37" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD54F" />
+      <stop offset="1" stop-color="#FFA000" />
+    </linearGradient>
+  </defs>
+</svg>

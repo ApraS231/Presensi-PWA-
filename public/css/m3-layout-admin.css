@@ -1,0 +1,265 @@
+/**
+ * Material Design 3 (M3) Desktop Admin Layout Styles
+ * PT. Cahaya Anugrah Kalimantan - Sistem Presensi PWA
+ */
+
+body.admin-body {
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--md-ref-typeface);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.admin-layout-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════
+   ADMIN SIDEBAR (Symmetrical & Adaptive Theme)
+   ═══════════════════════════════════════════ */
+.admin-sidebar {
+    background-color: var(--md-sys-color-surface-container-lowest);
+    border-right: 1px solid var(--md-sys-color-outline-variant);
+    display: flex;
+    flex-direction: column;
+    padding: 0 12px 20px 12px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    box-sizing: border-box;
+    z-index: 100;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 64px;
+    padding: 0 12px;
+    margin: 0 -12px 12px -12px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    box-sizing: border-box;
+    background-color: var(--md-sys-color-surface-container-lowest);
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.sidebar-brand img {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--md-sys-color-primary);
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-subtitle {
+    font-size: 11px;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-top: 2px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.sidebar-nav-header {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--md-sys-color-outline);
+    padding: 14px 10px 4px 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.md-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 9px;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 13.5px;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+    box-sizing: border-box;
+}
+
+.md-sidebar-item .material-symbols-rounded {
+    font-size: 20px;
+    color: var(--md-sys-color-outline);
+    transition: color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.md-sidebar-item:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+}
+
+.md-sidebar-item:hover .material-symbols-rounded {
+    color: var(--md-sys-color-primary);
+}
+
+.md-sidebar-item.active {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    font-weight: 600;
+}
+
+.md-sidebar-item.active .material-symbols-rounded {
+    color: var(--md-sys-color-on-primary-container);
+    font-variation-settings: 'FILL' 1, 'wght' 600;
+}
+
+/* ═══════════════════════════════════════════
+   ADMIN MAIN CONTENT & TOPBAR
+   ═══════════════════════════════════════════ */
+.admin-main-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 0;
+    background-color: var(--md-sys-color-surface);
+    transition: background-color 0.2s ease;
+}
+
+.admin-top-bar {
+    height: 64px;
+    background-color: var(--md-sys-color-surface-container-lowest);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.admin-sidebar-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--md-sys-shape-corner-medium);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface-variant);
+    cursor: pointer;
+}
+
+.admin-content-area {
+    flex: 1;
+    padding: 24px;
+    max-width: 1440px;
+    box-sizing: border-box;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--md-sys-shape-corner-full);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none !important;
+    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.theme-toggle-btn:hover {
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-primary);
+}
+
+/* Mobile Sidebar Backdrop */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+    backdrop-filter: blur(2px);
+}
+
+.sidebar-backdrop.show {
+    display: block;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════ */
+@media (max-width: 992px) {
+    .admin-layout-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        width: 260px;
+        z-index: 999;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        transition: left 0.25s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    .admin-sidebar.open {
+        left: 0;
+    }
+
+    .admin-sidebar-toggle {
+        display: inline-flex;
+    }
+
+    .admin-top-bar {
+        padding: 0 16px;
+    }
+
+    .admin-content-area {
+        padding: 20px 14px;
+    }
+}

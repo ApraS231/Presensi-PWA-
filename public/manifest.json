@@ -1,0 +1,25 @@
+{
+  "name": "Presensi PT. Cahaya Anugrah Kalimantan",
+  "short_name": "Presensi CAK",
+  "description": "Sistem Presensi Karyawan Web PWA (Face Recognition & Geofencing)",
+  "start_url": "/karyawan/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAFAFA",
+  "theme_color": "#1565C0",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

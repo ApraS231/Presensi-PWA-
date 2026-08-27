@@ -1,0 +1,273 @@
+/**
+ * Material Design 3 (M3) Design Tokens
+ * PT. Cahaya Anugrah Kalimantan - Sistem Presensi PWA
+ */
+
+:root,
+[data-theme="light"] {
+    /* ═══════════════════════════════════════════
+       PRIMARY - Tombol utama, FAB, aksen aktif
+       ═══════════════════════════════════════════ */
+    --md-sys-color-primary:               #1565C0;
+    --md-sys-color-on-primary:            #FFFFFF;
+    --md-sys-color-primary-container:     #D4E3FF;
+    --md-sys-color-on-primary-container:  #001C3A;
+
+    /* ═══════════════════════════════════════════
+       SECONDARY - Tombol sekunder, filter chips
+       ═══════════════════════════════════════════ */
+    --md-sys-color-secondary:             #546E7A;
+    --md-sys-color-on-secondary:          #FFFFFF;
+    --md-sys-color-secondary-container:   #CFE4EE;
+    --md-sys-color-on-secondary-container:#0C1D26;
+
+    /* ═══════════════════════════════════════════
+       TERTIARY - Aksen tambahan (sukses, geofence)
+       ═══════════════════════════════════════════ */
+    --md-sys-color-tertiary:              #00897B;
+    --md-sys-color-on-tertiary:           #FFFFFF;
+    --md-sys-color-tertiary-container:    #A7F5E7;
+    --md-sys-color-on-tertiary-container: #002019;
+
+    /* ═══════════════════════════════════════════
+       ERROR - Validasi gagal, alert kritis
+       ═══════════════════════════════════════════ */
+    --md-sys-color-error:                 #BA1A1A;
+    --md-sys-color-on-error:              #FFFFFF;
+    --md-sys-color-error-container:       #FFDAD6;
+    --md-sys-color-on-error-container:    #410002;
+
+    /* ═══════════════════════════════════════════
+       SURFACE - Background, card, dialog
+       ═══════════════════════════════════════════ */
+    --md-sys-color-surface:               #FAFAFA;
+    --md-sys-color-on-surface:            #1C1B1F;
+    --md-sys-color-surface-variant:       #E2E2E6;
+    --md-sys-color-on-surface-variant:    #44474E;
+    --md-sys-color-surface-container-lowest:  #FFFFFF;
+    --md-sys-color-surface-container-low:     #F6F6FA;
+    --md-sys-color-surface-container:         #F0F0F4;
+    --md-sys-color-surface-container-high:    #EAEAEE;
+    --md-sys-color-surface-container-highest: #E4E4E8;
+
+    /* ═══════════════════════════════════════════
+       OUTLINE & INVERSE
+       ═══════════════════════════════════════════ */
+    --md-sys-color-outline:               #74777F;
+    --md-sys-color-outline-variant:       #C4C6CF;
+    --md-sys-color-inverse-surface:       #313033;
+    --md-sys-color-inverse-on-surface:    #F4EFF4;
+    --md-sys-color-inverse-primary:       #A5C8FF;
+    --md-sys-color-scrim:                 #000000;
+    --md-sys-color-shadow:                #000000;
+
+    /* ═══════════════════════════════════════════
+       CUSTOM - Warna khusus status Presensi
+       ═══════════════════════════════════════════ */
+    --md-custom-color-success:            #2E7D32;
+    --md-custom-color-on-success:         #FFFFFF;
+    --md-custom-color-success-container:  #C8E6C9;
+    --md-custom-color-warning:            #F57F17;
+    --md-custom-color-on-warning:         #FFFFFF;
+    --md-custom-color-warning-container:  #FFF9C4;
+    --md-custom-color-info:               #0288D1;
+    --md-custom-color-on-info:            #FFFFFF;
+
+    /* Status Presensi Semantics */
+    --md-custom-color-tepat-waktu:        #2E7D32;
+    --md-custom-color-terlambat:          #E65100;
+    --md-custom-color-izin:               #0277BD;
+    --md-custom-color-sakit:              #6A1B9A;
+    --md-custom-color-cuti:               #00838F;
+    --md-custom-color-alpha:              #C62828;
+
+    /* ═══════════════════════════════════════════
+       EDITORIAL PALETTE: CLOUDY SKY & OCEAN BLUE
+       ═══════════════════════════════════════════ */
+    --color-cloudy-sky:                   #CBDDE9;
+    --color-cloudy-sky-light:             #EAF2F8;
+    --color-cloudy-sky-dark:              #AECADF;
+    --color-ocean-blue:                   #2872A1;
+    --color-ocean-blue-hover:             #1F5C83;
+    --color-ocean-blue-container:         #D9EBF6;
+    --color-ocean-blue-on-container:      #0C2B40;
+
+    /* ═══════════════════════════════════════════
+       CLAYMORPHISM TOKENS (LIGHT)
+       ═══════════════════════════════════════════ */
+    --clay-card-bg:                       #FFFFFF;
+    --clay-card-border:                   rgba(203, 221, 233, 0.65);
+    --clay-card-shadow:                   0 14px 28px rgba(40, 114, 161, 0.08), 0 4px 10px rgba(0, 0, 0, 0.02);
+    --clay-card-inset:                    inset 2px 2px 5px rgba(255, 255, 255, 0.95), inset -2px -2px 6px rgba(40, 114, 161, 0.09);
+    --clay-btn-bg:                        #2872A1;
+    --clay-btn-color:                     #FFFFFF;
+    --clay-btn-shadow:                    0 8px 20px rgba(40, 114, 161, 0.32);
+    --clay-btn-inset:                     inset 2px 2px 4px rgba(255, 255, 255, 0.4), inset -2px -2px 4px rgba(16, 54, 79, 0.5);
+}
+
+[data-theme="dark"] {
+    /* PRIMARY */
+    --md-sys-color-primary:               #A5C8FF;
+    --md-sys-color-on-primary:           #00315E;
+    --md-sys-color-primary-container:    #004884;
+    --md-sys-color-on-primary-container: #D4E3FF;
+
+    /* SECONDARY */
+    --md-sys-color-secondary:            #B4CAD6;
+    --md-sys-color-on-secondary:         #1F333E;
+    --md-sys-color-secondary-container:  #364955;
+    --md-sys-color-on-secondary-container:#CFE4EE;
+
+    /* TERTIARY */
+    --md-sys-color-tertiary:             #8AD8CB;
+    --md-sys-color-on-tertiary:          #00382F;
+    --md-sys-color-tertiary-container:   #005046;
+    --md-sys-color-on-tertiary-container:#A7F5E7;
+
+    /* ERROR */
+    --md-sys-color-error:                #FFB4AB;
+    --md-sys-color-on-error:             #690005;
+    --md-sys-color-error-container:      #93000A;
+    --md-sys-color-on-error-container:   #FFDAD6;
+
+    /* SURFACE */
+    --md-sys-color-surface:              #131316;
+    --md-sys-color-on-surface:           #E4E1E6;
+    --md-sys-color-surface-variant:      #44474E;
+    --md-sys-color-on-surface-variant:   #C4C6CF;
+    --md-sys-color-surface-container-lowest:  #0E0E11;
+    --md-sys-color-surface-container-low:     #1C1B1F;
+    --md-sys-color-surface-container:         #201F23;
+    --md-sys-color-surface-container-high:    #2B2A2E;
+    --md-sys-color-surface-container-highest: #363539;
+
+    /* OUTLINE & INVERSE */
+    --md-sys-color-outline:              #8E9099;
+    --md-sys-color-outline-variant:      #44474E;
+    --md-sys-color-inverse-surface:      #E4E1E6;
+    --md-sys-color-inverse-on-surface:   #313033;
+    --md-sys-color-inverse-primary:      #1565C0;
+    --md-sys-color-scrim:                #000000;
+    --md-sys-color-shadow:               #000000;
+
+    /* CUSTOM STATUS (dark-adjusted) */
+    --md-custom-color-success:           #81C784;
+    --md-custom-color-on-success:        #003300;
+    --md-custom-color-success-container: #1B5E20;
+    --md-custom-color-warning:           #FFD54F;
+    --md-custom-color-on-warning:        #3E2723;
+    --md-custom-color-warning-container: #E65100;
+    --md-custom-color-tepat-waktu:       #81C784;
+    --md-custom-color-terlambat:         #FFB74D;
+    --md-custom-color-izin:              #4FC3F7;
+    --md-custom-color-sakit:             #CE93D8;
+    --md-custom-color-cuti:              #4DD0E1;
+    --md-custom-color-alpha:             #EF5350;
+
+    /* ═══════════════════════════════════════════
+       EDITORIAL PALETTE: CLOUDY SKY & OCEAN BLUE (DARK)
+       ═══════════════════════════════════════════ */
+    --color-cloudy-sky:                   #324657;
+    --color-cloudy-sky-light:             #1E2C38;
+    --color-cloudy-sky-dark:              #16232D;
+    --color-ocean-blue:                   #5FA7D9;
+    --color-ocean-blue-hover:             #80BAE3;
+    --color-ocean-blue-container:         #193A52;
+    --color-ocean-blue-on-container:      #D9EBF6;
+
+    /* ═══════════════════════════════════════════
+       CLAYMORPHISM TOKENS (DARK)
+       ═══════════════════════════════════════════ */
+    --clay-card-bg:                       #1A2533;
+    --clay-card-border:                   rgba(255, 255, 255, 0.08);
+    --clay-card-shadow:                   0 14px 28px rgba(0, 0, 0, 0.45);
+    --clay-card-inset:                    inset 2px 2px 4px rgba(255, 255, 255, 0.08), inset -2px -2px 6px rgba(0, 0, 0, 0.55);
+    --clay-btn-bg:                        #2872A1;
+    --clay-btn-color:                     #FFFFFF;
+    --clay-btn-shadow:                    0 8px 20px rgba(0, 0, 0, 0.4);
+    --clay-btn-inset:                     inset 2px 2px 4px rgba(255, 255, 255, 0.25), inset -2px -2px 4px rgba(0, 0, 0, 0.6);
+}
+
+:root {
+    /* ═══════════════════════════════════════════
+       M3 SHAPE SCALE TOKENS
+       ═══════════════════════════════════════════ */
+    --md-sys-shape-corner-none:         0px;
+    --md-sys-shape-corner-extra-small:  4px;
+    --md-sys-shape-corner-small:        8px;
+    --md-sys-shape-corner-medium:       12px;
+    --md-sys-shape-corner-large:        16px;
+    --md-sys-shape-corner-extra-large:  28px;
+    --md-sys-shape-corner-full:         9999px;
+
+    /* ═══════════════════════════════════════════
+       M3 TONAL ELEVATION TOKENS
+       ═══════════════════════════════════════════ */
+    --md-sys-elevation-0: none;
+    --md-sys-elevation-1: 0 1px 3px 0 rgba(0,0,0,0.08), 0 1px 2px -1px rgba(0,0,0,0.08);
+    --md-sys-elevation-2: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.08);
+    --md-sys-elevation-3: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.08);
+    --md-sys-elevation-4: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.08);
+
+    /* ═══════════════════════════════════════════
+       M3 MOTION & EASING TOKENS
+       ═══════════════════════════════════════════ */
+    --md-sys-motion-easing-emphasized:           cubic-bezier(0.2, 0.0, 0, 1.0);
+    --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+    --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15);
+    --md-sys-motion-easing-standard:             cubic-bezier(0.2, 0.0, 0, 1.0);
+    --md-sys-motion-easing-linear:               linear;
+
+    --md-sys-motion-duration-short:              200ms;
+    --md-sys-motion-duration-medium:             300ms;
+    --md-sys-motion-duration-long:               400ms;
+
+    /* ═══════════════════════════════════════════
+       M3 SPACING SCALE (4px base)
+       ═══════════════════════════════════════════ */
+    --md-sys-spacing-1:  4px;
+    --md-sys-spacing-2:  8px;
+    --md-sys-spacing-3:  12px;
+    --md-sys-spacing-4:  16px;
+    --md-sys-spacing-5:  20px;
+    --md-sys-spacing-6:  24px;
+    --md-sys-spacing-8:  32px;
+    --md-sys-spacing-10: 40px;
+    --md-sys-spacing-12: 48px;
+
+    /* ═══════════════════════════════════════════
+       M3 TYPE SCALE (Inter Font)
+       ═══════════════════════════════════════════ */
+    --md-ref-typeface: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --md-sys-typescale-font-family: var(--md-ref-typeface);
+
+    --md-sys-typescale-display-large:   700 3.5625rem/4rem var(--md-ref-typeface);
+    --md-sys-typescale-display-medium:  700 2.8125rem/3.25rem var(--md-ref-typeface);
+    --md-sys-typescale-display-small:   600 2.25rem/2.75rem var(--md-ref-typeface);
+
+    --md-sys-typescale-headline-large:  600 2rem/2.5rem var(--md-ref-typeface);
+    --md-sys-typescale-headline-medium: 600 1.75rem/2.25rem var(--md-ref-typeface);
+    --md-sys-typescale-headline-small:  600 1.5rem/2rem var(--md-ref-typeface);
+
+    --md-sys-typescale-title-large:     600 1.375rem/1.75rem var(--md-ref-typeface);
+    --md-sys-typescale-title-medium:    500 1rem/1.5rem var(--md-ref-typeface);
+    --md-sys-typescale-title-small:     500 0.875rem/1.25rem var(--md-ref-typeface);
+
+    --md-sys-typescale-body-large:      400 1rem/1.5rem var(--md-ref-typeface);
+    --md-sys-typescale-body-medium:     400 0.875rem/1.25rem var(--md-ref-typeface);
+    --md-sys-typescale-body-small:      400 0.75rem/1rem var(--md-ref-typeface);
+
+    --md-sys-typescale-label-large:     500 0.875rem/1.25rem var(--md-ref-typeface);
+    --md-sys-typescale-label-medium:    500 0.75rem/1rem var(--md-ref-typeface);
+    --md-sys-typescale-label-small:     500 0.6875rem/1rem var(--md-ref-typeface);
+}
+
+html, body {
+    font-family: var(--md-ref-typeface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+}
