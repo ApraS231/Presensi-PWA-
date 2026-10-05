@@ -21,3 +21,10 @@ Schedule::command('attendance:auto-checkout')
     ->timezone('Asia/Makassar')
     ->withoutOverlapping()
     ->runInBackground();
+
+// 3. Pembersihan Otomatis Retensi Data Jejak Lokasi 30 Hari (02:00 WITA)
+Schedule::command('tracking:cleanup --days=30')
+    ->dailyAt('02:00')
+    ->timezone('Asia/Makassar')
+    ->withoutOverlapping()
+    ->runInBackground();

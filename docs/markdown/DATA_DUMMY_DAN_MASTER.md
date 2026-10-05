@@ -64,16 +64,23 @@ Dokumen ini berisi daftar lengkap akun dummy pengujian, master titik lokasi pres
 | `jam_istirahat` | `60` | Menit | Potongan waktu istirahat dalam jam kerja bersih. |
 | `hari_kerja` | `senin,selasa,rabu,kamis,jumat` | Teks Komparasi | Hari kerja aktif untuk otomatisasi auto-alpha. |
 | `max_retroaktif_izin` | `3` | Hari Kalender | Batas maksimum hari mundur pengajuan izin yang diizinkan. |
+| `tracking_interval_minutes` | `5` | Menit | Interval pengiriman titik koordinat GPS SPG keliling. |
+| `tracking_max_accuracy` | `100` | Meter | Batas maksimal toleransi akurasi GPS yang diterima. |
 
 ---
 
-## 4. Cara Menjalankan Seeder Kembali
-Jika basis data perlu di-reset atau diisi ulang sewaktu-waktu:
-```bash
-php artisan db:seed --class=DummyDataSeeder
-```
-Atau reset total seluruh tabel dan seeder:
+## 4. Master Data Rekaman Jejak Lokasi SPG (Location Tracks)
+
+Data dummy telah menyertakan rekaman jejak titik rute operasional untuk karyawan lapangan / SPG:
+- **KAR001 (Budi Santoso)**: Rute aktif hari berjalan dan kemarin di area Samarinda & Muara Badak (12 titik koordinat interval 15-30 menit, estimasi jarak ~12.5 km).
+- **Retensi Penyimpanan**: 30 hari kalender, teragregasi dalam siklus laporan bulanan tanggal 25 s.d. 25.
+
+---
+
+## 5. Cara Menjalankan Seeder Kembali
+
+Jalankan perintah berikut di terminal:
 ```bash
 php artisan migrate:fresh --seed
-php artisan db:seed --class=DummyDataSeeder
 ```
+Seluruh 12 akun pengguna, 5 titik lokasi geofence, 8 konfigurasi kebijakan sistem global, data kehadiran harian, dan rekaman titik jejak lokasi SPG akan otomatis terpasang ke basis data.

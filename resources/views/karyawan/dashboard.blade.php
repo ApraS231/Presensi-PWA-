@@ -162,7 +162,12 @@
                         </div>
                     @endif
 
-                    <a href="{{ route('karyawan.izin.create') }}" class="clay-btn clay-btn-cloudy" style="width: 100%; height: 46px; box-sizing: border-box;">
+                    <a href="{{ route('karyawan.tracking.index') }}" class="clay-btn clay-btn-cloudy" style="width: 100%; height: 44px; box-sizing: border-box; color: var(--color-ocean-blue);">
+                        <span class="material-symbols-rounded" style="font-size: 20px;">route</span>
+                        <span>Perjalanan Hari Ini (Live Track)</span>
+                    </a>
+
+                    <a href="{{ route('karyawan.izin.create') }}" class="clay-btn clay-btn-cloudy" style="width: 100%; height: 44px; box-sizing: border-box;">
                         <span class="material-symbols-rounded" style="font-size: 20px;">description</span>
                         <span>Ajukan Izin / Cuti / Sakit</span>
                     </a>

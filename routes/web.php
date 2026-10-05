@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\LeaveApprovalController as AdminLeaveApprovalCont
 use App\Http\Controllers\Admin\LocationController as AdminLocationController;
 use App\Http\Controllers\Admin\MonitoringController as AdminMonitoringController;
 use App\Http\Controllers\Admin\ReportController as AdminReportController;
+use App\Http\Controllers\Admin\TrackingViewController as AdminTrackingViewController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Karyawan\AttendanceController as KaryawanAttendanceController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Karyawan\DashboardController as KaryawanDashboardContro
 use App\Http\Controllers\Karyawan\EnrollmentController as KaryawanEnrollmentController;
 use App\Http\Controllers\Karyawan\GeofenceController as KaryawanGeofenceController;
 use App\Http\Controllers\Karyawan\LeaveController as KaryawanLeaveController;
+use App\Http\Controllers\Karyawan\LocationTrackController as KaryawanLocationTrackController;
 use App\Http\Controllers\Karyawan\ProfileController as KaryawanProfileController;
 use App\Http\Controllers\Karyawan\RiwayatController as KaryawanRiwayatController;
 use App\Http\Controllers\NotificationController;
@@ -74,6 +76,12 @@ Route::middleware(['auth', 'active', 'role.karyawan'])
         Route::get('/profile', [KaryawanProfileController::class, 'edit'])->name('profile');
         Route::put('/profile', [KaryawanProfileController::class, 'update'])->name('profile.update');
         Route::put('/profile/password', [KaryawanProfileController::class, 'updatePassword'])->name('profile.password');
+
+        // Modul Pelacakan Jejak Lokasi SPG / Karyawan (Live Tracking)
+        Route::get('/tracking', [KaryawanLocationTrackController::class, 'index'])->name('tracking.index');
+        Route::get('/tracking/status', [KaryawanLocationTrackController::class, 'status'])->name('tracking.status');
+        Route::post('/tracking/ping', [KaryawanLocationTrackController::class, 'ping'])->name('tracking.ping');
+        Route::get('/tracking/today', [KaryawanLocationTrackController::class, 'today'])->name('tracking.today');
     });
 
 // 4. Rute Khusus Role Admin & Super Admin (Desktop Dashboard)
@@ -88,6 +96,10 @@ Route::middleware(['auth', 'active', 'role.admin'])
 
         // Visualisasi Live Map Leaflet.js
         Route::get('/map', [AdminMonitoringController::class, 'liveMap'])->name('map.index');
+
+        // Pemantauan Jejak Lokasi Operasional SPG / Karyawan (View-Only)
+        Route::get('/tracking', [AdminTrackingViewController::class, 'index'])->name('tracking.index');
+        Route::get('/tracking/{user}/trail', [AdminTrackingViewController::class, 'trail'])->name('tracking.trail');
 
         // Manajemen Pendaftaran Biometrik Karyawan
         Route::get('/enrollment', [AdminEnrollmentController::class, 'index'])->name('enrollment.index');
@@ -116,6 +128,10 @@ Route::middleware(['auth', 'active', 'role.superadmin'])
     ->name('superadmin.')
     ->group(function () {
         Route::get('/dashboard', [SuperadminDashboardController::class, 'index'])->name('dashboard');
+
+        // Pemantauan Jejak Lokasi Operasional SPG / Karyawan (View-Only Super Admin)
+        Route::get('/tracking', [AdminTrackingViewController::class, 'index'])->name('tracking.index');
+        Route::get('/tracking/{user}/trail', [AdminTrackingViewController::class, 'trail'])->name('tracking.trail');
 
         // Master Karyawan & Akun Pengguna
         Route::resource('users', SuperadminUserController::class)->except(['show']);

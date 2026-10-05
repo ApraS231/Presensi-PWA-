@@ -89,6 +89,10 @@
                         <span class="material-symbols-rounded">map</span>
                         <span>Live Map Sebaran</span>
                     </a>
+                    <a href="{{ Auth::user()->role === 'superadmin' ? route('superadmin.tracking.index') : route('admin.tracking.index') }}" class="md-sidebar-item {{ request()->routeIs('*.tracking.*') ? 'active' : '' }}">
+                        <span class="material-symbols-rounded">route</span>
+                        <span>Pemantauan SPG</span>
+                    </a>
                     <a href="{{ route('admin.enrollment.index') }}" class="md-sidebar-item {{ request()->routeIs('admin.enrollment.*') ? 'active' : '' }}">
                         <span class="material-symbols-rounded">face</span>
                         <span>Enrollment Biometrik</span>

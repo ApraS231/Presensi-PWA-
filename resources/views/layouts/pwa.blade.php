@@ -150,6 +150,12 @@
                 @php
                     $unreadNotifCount = Auth::check() ? Auth::user()->notifications()->unread()->count() : 0;
                 @endphp
+
+                <!-- Live GPS Tracking Indicator Badge -->
+                <a href="{{ route('karyawan.tracking.index') }}" id="liveTrackingIndicator" style="display: none; align-items: center; gap: 5px; background: rgba(46, 125, 50, 0.12); color: var(--md-custom-color-success); border: 1px solid rgba(46, 125, 50, 0.3); border-radius: 9999px; padding: 4px 10px; font-size: 11px; font-weight: 700; text-decoration: none;" title="Pelacakan Lokasi Operasional Aktif">
+                    <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--md-custom-color-success); display: inline-block; box-shadow: 0 0 6px rgba(46, 125, 50, 0.8);"></span>
+                    <span>GPS Aktif</span>
+                </a>
                 
                 <!-- Notification Bell Button -->
                 <a href="{{ route('notifications.index') }}" class="theme-toggle-btn" style="position: relative;" title="Notifikasi">
@@ -178,6 +184,11 @@
                         <a href="{{ route('karyawan.profile') }}" class="md-dropdown-item">
                             <span class="material-symbols-rounded" style="font-size: 18px; color: var(--color-ocean-blue);">person</span>
                             <span>Pengaturan Profil</span>
+                        </a>
+
+                        <a href="{{ route('karyawan.tracking.index') }}" class="md-dropdown-item">
+                            <span class="material-symbols-rounded" style="font-size: 18px; color: var(--md-custom-color-success);">route</span>
+                            <span>Perjalanan Hari Ini</span>
                         </a>
 
                         <a href="{{ route('notifications.index') }}" class="md-dropdown-item">
@@ -490,6 +501,100 @@
                 });
             });
         });
+
+        // Background Operational GPS Tracking Service for Field Employees / SPG
+        @if(Auth::check() && Auth::user()->role === 'karyawan')
+        (function() {
+            let trackingTimer = null;
+            let isTrackingRunning = false;
+
+            async function checkAndRunTracking() {
+                try {
+                    const response = await fetch("{{ route('karyawan.tracking.status') }}", {
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (!response.ok) return;
+                    const data = await response.json();
+
+                    const indicator = document.getElementById('liveTrackingIndicator');
+
+                    if (data.tracking_active) {
+                        if (indicator) indicator.style.display = 'inline-flex';
+
+                        if (!isTrackingRunning) {
+                            isTrackingRunning = true;
+                            // Send initial ping immediately
+                            sendGpsPing();
+                            // Schedule recurrent pings
+                            const intervalMs = (data.interval_minutes || 5) * 60 * 1000;
+                            trackingTimer = setInterval(sendGpsPing, intervalMs);
+                        }
+                    } else {
+                        if (indicator) indicator.style.display = 'none';
+                        if (trackingTimer) {
+                            clearInterval(trackingTimer);
+                            trackingTimer = null;
+                        }
+                        isTrackingRunning = false;
+                    }
+                } catch (e) {
+                    console.warn('Gagal memeriksa status pelacakan lokasi:', e);
+                }
+            }
+
+            function sendGpsPing() {
+                if (!navigator.geolocation) return;
+
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        try {
+                            const payload = {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                                accuracy: position.coords.accuracy,
+                                recorded_at: new Date().toISOString()
+                            };
+
+                            const response = await fetch("{{ route('karyawan.tracking.ping') }}", {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify(payload)
+                            });
+
+                            const resData = await response.json();
+                            if (resData && resData.tracking_active === false) {
+                                const indicator = document.getElementById('liveTrackingIndicator');
+                                if (indicator) indicator.style.display = 'none';
+                                if (trackingTimer) {
+                                    clearInterval(trackingTimer);
+                                    trackingTimer = null;
+                                }
+                                isTrackingRunning = false;
+                            }
+                        } catch (err) {
+                            console.warn('Gagal mengirim koordinat jejak lokasi:', err);
+                        }
+                    },
+                    (error) => {
+                        console.warn('GPS error saat pelacakan operasional:', error.message);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 15000,
+                        maximumAge: 10000
+                    }
+                );
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                checkAndRunTracking();
+            });
+        })();
+        @endif
 
         // Service Worker Registration
         if ('serviceWorker' in navigator) {

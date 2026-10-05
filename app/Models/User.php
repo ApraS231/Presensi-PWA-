@@ -94,4 +94,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
+
+    /**
+     * Relasi 1:N ke Rekaman Titik Jejak Lokasi (Tracking)
+     */
+    public function locationTracks(): HasMany
+    {
+        return $this->hasMany(LocationTrack::class);
+    }
 }

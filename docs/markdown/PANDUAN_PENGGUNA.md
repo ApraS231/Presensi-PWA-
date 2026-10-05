@@ -67,6 +67,17 @@ Sistem Presensi Progressive Web Application (PWA) PT. Cahaya Anugrah Kalimantan 
 ### Langkah 6: Pemantauan Riwayat Kehadiran Mandiri
 - Karyawan dapat membuka menu **"Riwayat"** untuk melihat rangkuman statistik bulanan: total hari hadir, keterlambatan, cuti/izin yang disetujui, dan alpha, lengkap dengan pratinjau snapshot foto presensi masuk dan pulang.
 
+### Langkah 7: Pemantauan Perjalanan Hari Ini (Khusus SPG Keliling)
+- Bagi karyawan lapangan / SPG, pelacakan rute GPS akan otomatis aktif di background segera setelah presensi masuk berhasil.
+- Indikator **`[● GPS Aktif]`** akan muncul pada header atas aplikasi.
+- Buka menu **"Perjalanan Hari Ini"** untuk melihat peta interaktif Leaflet.js yang memuat titik awal check-in (A), posisi terkini (B), total titik, dan estimasi jarak tempuh kilometer.
+- Data perjalanan pada tampilan karyawan dibatasi khusus untuk hari berjalan dan otomatis direset setiap pergantian hari.
+
+### Langkah 8: Pengaturan Profil Mandiri & Ganti Foto Avatar
+- Buka menu dropdown akun di kanan atas lalu pilih **"Pengaturan Profil"**.
+- Karyawan dapat memperbarui Nama Lengkap, Nomor Telepon WhatsApp, mengunggah foto profil baru, atau menghapus foto profil.
+- Karyawan juga dapat mengubah kata sandi akun secara mandiri dengan memasukkan kata sandi saat ini.
+
 ---
 
 ## 3. Panduan Operasional HRD / Admin Presensi (Desktop)
@@ -85,13 +96,19 @@ Sistem Presensi Progressive Web Application (PWA) PT. Cahaya Anugrah Kalimantan 
   - **Kuning / Oranye:** Presensi Terlambat.
 - Klik pada pin karyawan untuk melihat popup detail: Nama, NIK, Waktu Presensi Masuk/Pulang, Jarak dari titik pusat kantor, dan thumbnail foto snapshot.
 
-### 3. Pemrosesan & Approval Pengajuan Izin / Cuti
+### 3. Pemantauan Jejak Operasional SPG Keliling (Siklus 25-25)
+- Buka menu **"Pemantauan SPG"** pada sidebar navigasi desktop.
+- **Siklus Laporan Bulanan (25-25)**: Pilih periode bulanan yang terhitung dari tanggal 25 bulan sebelumnya s.d. tanggal 25 bulan aktif (contoh: *25 Juli - 25 Agustus*).
+- **Tabel Ringkasan Lapangan**: Menampilkan daftar SPG, jumlah hari aktif lapangan, total titik koordinat, dan estimasi akumulasi jarak tempuh (km).
+- **Trail Inspector Peta**: Klik tombol **"Lihat Rute"** untuk menampilkan jalur polyline perjalanan SPG pada tanggal terpilih, lengkap dengan checkpoint, jam masuk, jam pulang, dan durasi operasional lapangan.
+
+### 4. Pemrosesan & Approval Pengajuan Izin / Cuti
 - Buka menu **"Persetujuan Izin"** untuk melihat daftar antrean permohonan karyawan.
 - Klik permohonan untuk meninjau detail alasan, rentang tanggal, dan lampiran dokumen bukti.
 - Pilih tindakan **"Setujui" (Approve)** atau **"Tolak" (Reject)** disertai catatan evaluasi.
 - Permohonan yang disetujui otomatis menghasilkan catatan kehadiran sah pada hari kerja aktif, sehingga karyawan tidak terhitung Alpha.
 
-### 4. Rekapitulasi Laporan & Ekspor Dokumen Resmi
+### 5. Rekapitulasi Laporan & Ekspor Dokumen Resmi
 - Buka menu **"Laporan & Rekapitulasi"**.
 - Pilih rentang tanggal kustom atau gunakan preset cepat: *Hari Ini*, *7 Hari Terakhir*, *Bulan Ini*, atau *Bulan Lalu*.
 - Sistem menyajikan tabel rekapitulasi lengkap dengan formula jam kerja bersih:
@@ -115,7 +132,10 @@ Sistem Presensi Progressive Web Application (PWA) PT. Cahaya Anugrah Kalimantan 
 - Tentukan **Radius Geofence (Meter)** untuk menetapkan batas toleransi jarak presensi karyawan (contoh: 100 meter).
 - Titik lokasi dapat diaktifkan atau dinonaktifkan sewaktu-waktu sesuai status proyek.
 
-### 3. Konfigurasi Kebijakan Sistem Global
+### 3. Pemantauan Jejak SPG (Super Admin View)
+- Super Admin memiliki akses pemantauan yang sama ke menu *Pemantauan SPG* untuk memantau rute seluruh armada lapangan dan sales secara transparan (view-only).
+
+### 4. Konfigurasi Kebijakan Sistem Global
 Super Admin dapat mengatur parameter operasional sistem melalui menu *Kebijakan Sistem*:
 
 | Parameter Kebijakan | Nilai Standar | Keterangan & Fungsi |
@@ -126,6 +146,8 @@ Super Admin dapat mengatur parameter operasional sistem melalui menu *Kebijakan 
 | **Durasi Istirahat Harian** | 60 Menit | Potongan waktu istirahat dalam formula perhitungan jam kerja bersih payroll. |
 | **Kalender Hari Kerja Aktif** | senin s/d jumat | Hari kerja aktif untuk otomatisasi scheduler generate status Alpha. |
 | **Batas Retroaktif Izin** | 3 Hari | Batas maksimum hari ke belakang pengajuan izin/sakit yang diperbolehkan. |
+| **Interval Tracking SPG** | 5 Menit | Frekuensi periodik pengiriman koordinat GPS karyawan lapangan. |
+| **Batas Akurasi GPS** | 100 Meter | Batas maksimal toleransi akurasi GPS yang diterima server. |
 
 ---
 

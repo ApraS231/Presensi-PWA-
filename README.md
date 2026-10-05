@@ -20,22 +20,24 @@ Sistem mengadopsi arsitektur hibrida:
 - **Instalasi PWA:** Dukungan "Add to Home Screen" dan caching Service Worker untuk akses instan dan dukungan offline UI.
 - **Presensi Masuk & Pulang:** Verifikasi biometrik wajah real-time (Euclidean Distance threshold <= 0.50) dan validasi radius kantor/proyek.
 - **Pencegahan Presensi Ganda:** Validasi status harian otomatis untuk mencegah check-in berulang.
+- **Live Location Tracking (SPG Keliling):** Pelacakan rute GPS otomatis selama jam kerja, filter akurasi <100m, stationary throttle, dan peta rute mandiri ("Perjalanan Hari Ini" dengan reset harian).
+- **Pengaturan Profil Mandiri:** Pembaruan nama, kontak telepon, upload/delete foto profil avatar, dan ubah password mandiri.
 - **Pengajuan Izin/Sakit/Cuti:** Form pengajuan mandiri dengan upload bukti berkas (maksimal 2MB) dan validasi batas retroaktif.
-- **Riwayat Kehadiran:** Akses mandiri riwayat absensi, status kedisiplinan, dan tanda auto-checkout.
+- **Riwayat Kehadiran:** Akses mandiri riwayat absensi (1-bar unified summary), status kedisiplinan, dan tanda auto-checkout.
 - **Pusat Notifikasi In-App:** Pemberitahuan berkala pembaruan status perizinan.
 
 ### 2. HRD & Admin Presensi (Desktop Dashboard)
 - **Enrollment Biometrik:** Pendaftaran dan pembaruan (re-enrollment) template wajah karyawan via webcam desktop.
-- **Monitoring Real-Time:** Kartu statistik kehadiran harian dan filter per departemen.
-- **Live Interactive Map:** Visualisasi peta Leaflet.js dengan marker posisi presensi dan lingkaran geofence kantor/proyek.
+- **Monitoring Real-Time:** Kartu statistik kehadiran harian, live map sebaran presensi, dan filter per departemen.
+- **Pemantauan SPG Keliling:** Visualisasi polyline perjalanan SPG lapangan pada siklus bulanan 25-25 dengan checkpoint dan estimasi jarak tempuh kumulatif (view-only).
 - **Persetujuan Perizinan:** Workflow review, persetujuan (Approve/Reject), dan sinkronisasi otomatis ke log kehadiran.
 - **Rekapitulasi & Export:** Perhitungan jam kerja bersih, akumulasi keterlambatan, dan ekspor dokumen Excel (.xlsx) serta PDF (.pdf).
 
 ### 3. Super Admin & IT (System Control)
 - **Manajemen Multi-Lokasi:** Konfigurasi titik koordinat latitude, longitude, dan radius geofence kantor/titik proyek.
 - **Manajemen Akun & Karyawan:** Tata kelola data pegawai, hak akses (RBAC), dan toggle aktivasi akun.
-- **Konfigurasi Kebijakan Global:** Pengaturan jam masuk, jam pulang, toleransi keterlambatan, jam istirahat, dan hari kerja aktif.
-- **Otomasi Scheduler:** Eksekusi harian jam 23:00 WITA untuk penanganan auto-checkout dan pencatatan status alpha otomatis.
+- **Konfigurasi Kebijakan Global:** Pengaturan jam masuk, jam pulang, toleransi keterlambatan, jam istirahat, hari kerja aktif, interval tracking SPG, dan batas toleransi akurasi GPS.
+- **Otomasi Scheduler:** Eksekusi harian untuk penanganan auto-alpha (18:00 WITA), auto-checkout (23:59 WITA), dan pembersihan data jejak lama 30 hari (02:00 WITA).
 
 ---
 
@@ -45,18 +47,19 @@ Sistem mengadopsi arsitektur hibrida:
 |---|---|
 | **Backend Framework** | Laravel 11 (PHP 8.2+) |
 | **Frontend Templating** | Blade + Alpine.js |
-| **Design System** | Material Design 3 (M3) via CSS Custom Properties (Light & Dark Theme) |
+| **Design System** | Material Design 3 (M3) via CSS Custom Properties + Claymorphism (Light & Dark Theme) |
 | **Face Recognition** | face-api.js (TensorFlow.js) di browser klien |
 | **Peta & Geospasial** | Leaflet.js, OpenStreetMap Tiles, dan Haversine Formula |
 | **PWA Engine** | Web App Manifest + Service Worker API |
 | **Database** | MySQL 8.0 / MariaDB |
 | **Document Export** | PhpSpreadsheet (.xlsx) dan Laravel-DomPDF (.pdf) |
+| **Quality Assurance** | PHPUnit (18 Test Suites, 124 Test Cases, 485 Assertions - 100% Pass) |
 
 ---
 
 ## Skema Database
 
-Sistem didukung oleh 7 tabel utama:
+Sistem didukung oleh 8 tabel utama:
 1. `users` - Akun pengguna, hak akses peran (karyawan, admin, superadmin), departemen, dan status pendaftaran biometrik.
 2. `face_descriptors` - Vektor numerik 128-float representasi biometrik wajah (relasi 1:1).
 3. `locations` - Master data titik lokasi kantor dan radius toleransi geofence (meter).
@@ -64,6 +67,7 @@ Sistem didukung oleh 7 tabel utama:
 5. `leaves` - Data pengajuan cuti/izin/sakit, berkas bukti, dan catatan review persetujuan.
 6. `settings` - Pengaturan parameter jam kerja dan kebijakan operasional.
 7. `notifications` - Log notifikasi in-app untuk pengguna.
+8. `location_tracks` - Log titik jejak koordinat GPS operasional SPG keliling (retensi 30 hari).
 
 ---
 

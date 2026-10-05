@@ -6,6 +6,7 @@ use App\Models\Attendance;
 use App\Models\FaceDescriptor;
 use App\Models\Leave;
 use App\Models\Location;
+use App\Models\LocationTrack;
 use App\Models\Notification;
 use App\Models\Setting;
 use App\Models\User;
@@ -33,6 +34,8 @@ class DummyDataSeeder extends Seeder
             ['key' => 'jam_istirahat', 'value' => '60', 'description' => 'Durasi istirahat harian dalam menit'],
             ['key' => 'hari_kerja', 'value' => 'senin,selasa,rabu,kamis,jumat', 'description' => 'Hari kerja operasional aktif'],
             ['key' => 'max_retroaktif_izin', 'value' => '3', 'description' => 'Batas maksimal hari mundur pengajuan izin'],
+            ['key' => 'tracking_interval_minutes', 'value' => '5', 'description' => 'Interval pengiriman lokasi SPG/karyawan (menit)'],
+            ['key' => 'tracking_max_accuracy', 'value' => '100', 'description' => 'Batas maksimal toleransi akurasi GPS (meter)'],
         ];
 
         foreach ($settings as $setting) {
@@ -482,5 +485,76 @@ class DummyDataSeeder extends Seeder
             'type'    => 'status_izin',
             'is_read' => false,
         ]);
+
+        // ==========================================
+        // 7. DATA DUMMY REKAMAN JEJAK LOKASI SPG (LIVE TRACKS)
+        // ==========================================
+        // Ambil data presensi hari ini dan kemarin untuk KAR001 & KAR002
+        $attBudiToday = Attendance::where('user_id', $userModels['KAR001']->id)->whereDate('date', $today)->first();
+        $attBudiYesterday = Attendance::where('user_id', $userModels['KAR001']->id)->whereDate('date', $yesterday)->first();
+
+        // Rute SPG Budi Santoso Hari Ini (Sekitar Samarinda / Muara Badak)
+        if ($attBudiToday) {
+            $baseLat = -0.3125000;
+            $baseLng = 117.3850000;
+
+            $routePoints = [
+                ['offsetLat' => 0.0000, 'offsetLng' => 0.0000, 'minute' => 0],
+                ['offsetLat' => 0.0025, 'offsetLng' => 0.0018, 'minute' => 15],
+                ['offsetLat' => 0.0058, 'offsetLng' => 0.0042, 'minute' => 30],
+                ['offsetLat' => 0.0092, 'offsetLng' => 0.0075, 'minute' => 45],
+                ['offsetLat' => 0.0125, 'offsetLng' => 0.0110, 'minute' => 60],
+                ['offsetLat' => 0.0160, 'offsetLng' => 0.0145, 'minute' => 75],
+                ['offsetLat' => 0.0185, 'offsetLng' => 0.0180, 'minute' => 90],
+                ['offsetLat' => 0.0150, 'offsetLng' => 0.0210, 'minute' => 120],
+                ['offsetLat' => 0.0110, 'offsetLng' => 0.0245, 'minute' => 150],
+                ['offsetLat' => 0.0070, 'offsetLng' => 0.0270, 'minute' => 180],
+                ['offsetLat' => 0.0035, 'offsetLng' => 0.0295, 'minute' => 210],
+                ['offsetLat' => 0.0010, 'offsetLng' => 0.0315, 'minute' => 240],
+            ];
+
+            $startTime = Carbon::parse($today . ' 07:45:00', 'Asia/Makassar');
+            foreach ($routePoints as $pt) {
+                LocationTrack::create([
+                    'user_id'       => $userModels['KAR001']->id,
+                    'attendance_id' => $attBudiToday->id,
+                    'date'          => $today,
+                    'latitude'      => round($baseLat + $pt['offsetLat'], 7),
+                    'longitude'     => round($baseLng + $pt['offsetLng'], 7),
+                    'accuracy'      => rand(8, 25),
+                    'recorded_at'   => (clone $startTime)->addMinutes($pt['minute']),
+                ]);
+            }
+        }
+
+        // Rute SPG Budi Santoso Kemarin
+        if ($attBudiYesterday) {
+            $baseLat = -0.3125000;
+            $baseLng = 117.3850000;
+
+            $routePointsYesterday = [
+                ['offsetLat' => 0.0000, 'offsetLng' => 0.0000, 'minute' => 0],
+                ['offsetLat' => -0.0030, 'offsetLng' => 0.0025, 'minute' => 20],
+                ['offsetLat' => -0.0065, 'offsetLng' => 0.0055, 'minute' => 40],
+                ['offsetLat' => -0.0090, 'offsetLng' => 0.0090, 'minute' => 60],
+                ['offsetLat' => -0.0120, 'offsetLng' => 0.0120, 'minute' => 90],
+                ['offsetLat' => -0.0150, 'offsetLng' => 0.0160, 'minute' => 120],
+                ['offsetLat' => -0.0110, 'offsetLng' => 0.0190, 'minute' => 180],
+                ['offsetLat' => -0.0050, 'offsetLng' => 0.0220, 'minute' => 240],
+            ];
+
+            $startYesterday = Carbon::parse($yesterday . ' 07:50:00', 'Asia/Makassar');
+            foreach ($routePointsYesterday as $pt) {
+                LocationTrack::create([
+                    'user_id'       => $userModels['KAR001']->id,
+                    'attendance_id' => $attBudiYesterday->id,
+                    'date'          => $yesterday,
+                    'latitude'      => round($baseLat + $pt['offsetLat'], 7),
+                    'longitude'     => round($baseLng + $pt['offsetLng'], 7),
+                    'accuracy'      => rand(8, 20),
+                    'recorded_at'   => (clone $startYesterday)->addMinutes($pt['minute']),
+                ]);
+            }
+        }
     }
 }

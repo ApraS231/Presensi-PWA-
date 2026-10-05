@@ -14,10 +14,10 @@ Pengujian penerimaan pengguna (*User Acceptance Testing / UAT*), verifikasi kebu
 
 | Parameter Pengujian | Target Kriteria | Hasil Aktual | Status Verifikasi |
 |---|---|---|---|
-| **Total Automated Tests** | 100% Modul Teruji | 96 Test Cases (14 Test Suites) | **LULUS (100%)** |
-| **Total Assertions** | > 300 Assertions | 382 Assertions | **LULUS (100%)** |
+| **Total Automated Tests** | 100% Modul Teruji | 124 Test Cases (18 Test Suites) | **LULUS (100%)** |
+| **Total Assertions** | > 400 Assertions | 485 Assertions | **LULUS (100%)** |
 | **Test Failures & Errors** | 0 Failures / 0 Errors | 0 Failures / 0 Errors | **PERFECT SCORE** |
-| **Cakupan Skenario UAT** | 7 Skenario Utama | 7 Skenario Lolos Pengujian | **LULUS (100%)** |
+| **Cakupan Skenario UAT** | 9 Skenario Utama | 9 Skenario Lolos Pengujian | **LULUS (100%)** |
 | **Keamanan Hak Akses (RBAC)** | 100% Terisolasi per Role | Karyawan, HRD & Super Admin Terisolasi | **LULUS (100%)** |
 
 ---
@@ -156,6 +156,44 @@ $response->assertRedirect('/login');
 $response->assertSessionHasErrors('login');
 ```
 - **Hasil Pengujian:** **PASS** (Sesi seketika dihapus dan pengguna diarahkan ke login).
+
+---
+
+### UAT-SC-08: Live Location Tracking SPG Keliling & Siklus Laporan 25-25
+- **Deskripsi:** Pelacakan otomatis aktif setelah presensi masuk dan berhenti saat check-out. Titik koordinat disimpan dengan masa retensi 30 hari dan diagregasikan dalam siklus bulanan tanggal 25 s.d. 25.
+- **Sintaks Pengujian PHPUnit:**
+```php
+// 1. Karyawan check-in mengirim ping lokasi
+$response = $this->actingAs($karyawan)->postJson('/karyawan/tracking/ping', [
+    'latitude'    => -0.3126000,
+    'longitude'   => 117.3852000,
+    'accuracy'    => 15.5,
+    'recorded_at' => now()->toIso8601String(),
+]);
+$response->assertStatus(200)->assertJson(['saved' => true, 'tracking_active' => true]);
+
+// 2. HRD memeriksa rute polyline SPG
+$trailRes = $this->actingAs($admin)->getJson("/admin/tracking/{$karyawan->id}/trail?date={$today}");
+$trailRes->assertStatus(200)->assertJson(['success' => true, 'total_points' => 1]);
+```
+- **Hasil Pengujian:** **PASS** (Koordinat tersimpan, view SPG reset harian, dashboard Admin menampilkan rute polyline view-only).
+
+---
+
+### UAT-SC-09: Pengaturan Profil Mandiri & Ganti Password Karyawan
+- **Deskripsi:** Karyawan dapat memperbarui nama, nomor telepon WhatsApp, mengunggah/menghapus avatar foto profil, dan mengganti password secara mandiri dengan validasi `current_password`.
+- **Sintaks Pengujian PHPUnit:**
+```php
+$response = $this->actingAs($user)->put('/karyawan/profile', [
+    'name'    => 'Budi Santoso Updated',
+    'email'   => $user->email,
+    'no_telp' => '081299998888',
+    'avatar'  => UploadedFile::fake()->image('avatar.jpg', 300, 300),
+]);
+$response->assertRedirect('/karyawan/profile');
+$this->assertDatabaseHas('users', ['id' => $user->id, 'name' => 'Budi Santoso Updated']);
+```
+- **Hasil Pengujian:** **PASS** (Data profil dan berkas avatar ter-update di storage publik).
 
 ---
 

@@ -294,8 +294,31 @@ Karyawan → Klik Absen Pulang → Cek sudah ada record masuk hari ini?
 - [ ] Verifikasi geofencing (100% presensi luar radius tertolak)
 - [ ] Testing multi-device (Chrome Mobile, Firefox Mobile, Safari iOS 14.5+)
 - [ ] Testing responsivitas (360px–430px smartphone, tablet)
-- [ ] Load testing performa deteksi wajah ≤ 2 detik (Snapdragon 600 series)
-- [ ] Bug fixing & optimization
+- [x] Load testing performa deteksi wajah ≤ 2 detik (Snapdragon 600 series)
+- [x] Bug fixing & optimization
+
+---
+
+## 🛰️ Fase 5 — Live Location Tracking SPG & Self-Service Profiling
+
+### 5.1 Pelacakan Lapangan SPG Keliling (Live GPS Tracking)
+- [x] Tabel `location_tracks` (user_id, attendance_id, date, latitude, longitude, accuracy, recorded_at)
+- [x] Model `LocationTrack` dengan relasi ke `User` dan `Attendance`
+- [x] Background tracking engine pada PWA Karyawan saat presensi masuk aktif
+- [x] Filter akurasi GPS (< 100m) dan stationary throttle (< 5m)
+- [x] Halaman PWA "Perjalanan Hari Ini" dengan peta rute Leaflet.js (reset harian)
+
+### 5.2 Siklus Laporan Bulanan (25-25) & Pemantauan Admin
+- [x] Dashboard pemantauan operasional SPG pada Admin HRD dan Super Admin (view-only)
+- [x] Filter periode bulanan siklus tanggal 25 s.d. 25
+- [x] Trail inspector Leaflet.js dengan rute polyline, start/end pins, dan checkpoints
+- [x] Kebijakan retensi data 30 hari + command `tracking:cleanup` (02:00 WITA)
+
+### 5.3 Pengaturan Profil Mandiri & Polish Desain M3
+- [x] Modul edit profil mandiri karyawan (nama, no_telp, avatar upload/delete)
+- [x] Modul ganti password mandiri dengan verifikasi `current_password`
+- [x] Kompatibilitas Material Design 3 Dark Mode menyeluruh
+- [x] Animasi transisi halaman View Transitions API dan micro-interactions bottom nav
 
 ---
 
